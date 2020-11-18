@@ -1,0 +1,121 @@
+<div id="menu">
+		
+		<div class="myInfo">
+			<div class="img"><img src="" alt=""></div>
+			<p>경영기획과 OOO님<br/>안녕하세요</p>
+			<a href="javascript:;">로그아웃</a>
+		</div>
+		<div id="menuList">
+			<h2 class="nicon04">홈페이지관리</h2>
+			<ul>
+				<li><a href="javascript:;">팝업관리</a></li>
+				<li><a href="javascript:;">과학관소식</a></li>
+				<li>
+					<a href="javascript:;" class="on">게시판관리</a>
+					<ul>
+						<li><a href="javascript:;" class="on">공지사항</a></li>
+						<li><a href="javascript:;">자주묻는질문</a></li>
+					</ul>
+				</li>
+				<li><a href="javascript:;">과학관TV</a></li>
+				<li><a href="javascript:;">Push메시지</a></li>
+			</ul>
+		</div>
+	</div>
+  
+  
+  
+  /* menu */
+#wrap {position: relative; height: 100%; min-height:845px;}
+#wrap:after {content: ""; display: inline-block; width: 2px; height: 100%; background: #e5e5e5; position: absolute; top: 0; left: 322px;}
+#menu {width: 322px; height: 100%; background: #fff; position: absolute; top: 0; left: 0;}
+#menu #menuList {width: 100%; overflow: hidden; padding-left: 90px;}
+#menu #menuList h2 {display: inline-block; position: relative; font-size: 24px; color: #000; font-weight: 500; margin: 37px 0 13px;}
+#menu #menuList h2:before {content: ""; display: inline-block; position: absolute; top: 7px; left: -30px; width: 20px; height: 20px;}
+#menu #menuList h2.nicon01:before {background: url('../images/icon_navi_01.png') center 0 no-repeat;}
+#menu #menuList h2.nicon02:before {background: url('../images/icon_navi_02.png') center 0 no-repeat;}
+#menu #menuList h2.nicon03:before {background: url('../images/icon_navi_03.png') center 0 no-repeat;}
+#menu #menuList h2.nicon04:before {background: url('../images/icon_navi_04.png') center 0 no-repeat;}
+#menu #menuList h2.nicon05:before {background: url('../images/icon_navi_05.png') center 0 no-repeat;}
+#menu #menuList ul li ul {display: none;}
+#menu #menuList ul > li {margin-bottom: 5px;}
+#menu #menuList ul > li > a {min-width: 160px; display: inline-block; font-size: 18px; color: #333333; font-weight: 300; border-radius: 20px; padding: 6px 20px 6px 20px; background: none;}
+#menu #menuList ul > li > a.on {background: #0c0c33; color: #fff;}
+#menu #menuList ul > li > a.on + ul {display: block;}
+#menu #menuList ul > li > a.on + ul > li > a  {min-width: 160px; display: inline-block; font-size: 18px; color: #333333; font-weight: 300; border-radius: 20px; padding: 6px 10px 6px 20px; background: none;}
+#menu #menuList ul > li > a + ul > li > a  {border-radius: 0; color: #0c0c33;}
+#menu #menuList ul > li > a + ul > li > a:before {content: "-"; display: inline-block; margin-right: 5px;}
+#menu #menuList ul > li > a.on + ul > li > a.on {font-weight: 500;}
+#menu #menuList ul > li > a.on + ul > li > a.on span {border-bottom: 1px solid #0c0c33;}
+
+#menu .myInfo {background: #0c0c33; padding: 40px 0; text-align: center; border-bottom: 2px solid #e5e5e5;}
+#menu .myInfo .img {border-radius: 50%; overflow: hidden; background: url('../images/bg_member.png') 0 0 no-repeat; width: 108px; height: 108px; margin: 0 auto;}
+#menu .myInfo p {font-size: 18px; color: #fff; padding: 10px 0 20px;}
+#menu .myInfo a {display: inline-block; width: 200px; height: 40px; line-height: 40px; border-radius: 8px; font-size: 18px; color: #ffffff; font-weight: 600; background: #7e8abe;}
+
+#content {padding-left: 322px;}
+#content .conHeader {width: 100%; background: #f8f8f8; height: 114px; padding: 40px 0 40px 125px;}
+#content .conHeader h2 {font-size: 24px; color: #000; font-weight: 400;}
+#content .conHeader p {position: absolute; top: 44px; right: 80px; font-size: 16px; color: #666666; font-weight: 300;}
+#content .conHeader p span {border-bottom: 1px solid #999;}
+#content .conBody {padding: 50px 0 100px 127px; max-width:1227px;}
+
+
+$(function(){
+	//bg height
+	menuH = function(){
+		var winH = $(window).height();
+		var hdH = winH - $('header').height() - 2;
+		$('#menu').css('height',hdH);
+	};
+	menuH();
+	// depth menu
+	var inOn = $('#menu #menuList ul > li > a.on + ul > li > a.on');
+	inOn.wrapInner('<span></span>')
+  
+  
+  //menu
+	var $menuA = $('#menuList > ul > li > a')
+	var $menuDepUl =  $('#menuList > ul > li > ul');
+	var $menuDepUlA =  $('#menuList > ul > li > ul > li > a');
+	var $menuDepUlUL =  $('#menuList > ul > li > ul > li > ul');
+
+	var menuEvent = function () {
+		$menuA.each(function() {
+			$(this).click(function(){
+				if ($(this).is('.hover')){
+					$(this).siblings('ul').slideUp(300);
+					$(this).removeClass('hover');
+				} else {
+					$menuDepUl.slideUp(300);
+					$menuA.removeClass('hover');
+					$(this).addClass('hover');
+					$(this).siblings('ul').slideDown(300);
+				}
+			});
+		});
+//		$menuDepUlA.each(function() {
+//			if ($(this).is('.on')){
+//
+//			} else {
+//				//$menuDepUl.slideUp(300);
+//				//$menuA.removeClass('hover');
+//				$(this).addClass('on');
+//				$(this).siblings('ul').slideDown(300);
+//			}
+//		});
+	}
+	menuEvent();
+
+
+
+
+
+	//resize
+	$(window).resize(function(){
+		menuH(); //left menu height
+		loginBgH(); //login bg height
+	});
+  
+});
+
